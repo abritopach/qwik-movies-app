@@ -1,20 +1,33 @@
-import { component$, Slot } from '@builder.io/qwik';
-import Header from '../components/header/header';
+import { component$, useStore } from '@builder.io/qwik';
 
 export default component$(() => {
+  const github = useStore({
+    org: 'BuilderIO',
+    repos: ['qwik', 'partytown'] as string[] | null,
+  });
+
   return (
-    <>
-      <main>
-        <Header />
-        <section>
-          <Slot />
-        </section>
-      </main>
-      <footer>
-        <a href="https://www.builder.io/" target="_blank">
-          Made with ♡ by Builder.io
-        </a>
-      </footer>
-    </>
+    <div>
+      <span>
+        GitHub username:
+        <input value={github.org} />
+      </span>
+      <div>
+        {github.repos ? (
+          <ul>
+            {github.repos.map((repo) => (
+              <li key={repo}>
+                <a href={`https://github.com/${github.org}/${repo}`}>
+                  {github.org}/{repo}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          'loading...'
+        )}
+      </div>
+    </div>
   );
 });
+
