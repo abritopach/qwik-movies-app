@@ -1,5 +1,4 @@
 import { component$, Resource, useResource$, useStore } from '@builder.io/qwik';
-import UseClientEffect from '~/components/basic/useClientEffect';
 
 export default component$(() => {
   const github = useStore({
